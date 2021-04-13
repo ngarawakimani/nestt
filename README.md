@@ -29,7 +29,7 @@ $ git clone git@gitlab.com:dej-rs-projects/testprojects/2021-04-nestjs-dancan-ki
 
 ```bash
 # development
-$ docker-compose up
+$ docker-compose up -d
 $ docker logs -f time_entries_ap
 ```
 
