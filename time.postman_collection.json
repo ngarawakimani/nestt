@@ -1,0 +1,221 @@
+{
+	"info": {
+		"_postman_id": "5118e2b3-b7a5-4d6f-ab18-415535e89e3d",
+		"name": "time",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3030/time-entries/issues",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3030/api/v1/time-entries/issues",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"v1",
+						"time-entries",
+						"issues"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3030/time-entries/users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3030/api/v1/time-entries/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"v1",
+						"time-entries",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3030/time-entries/projects",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3030/api/v1/time-entries/projects",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"v1",
+						"time-entries",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3030/api/v1/time-entries/projects",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3030/api/v1/time-entries/projects",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"v1",
+						"time-entries",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3030/api/v1/time-entries/time-entry-of-user-per-project",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"projectId\": 1,\n    \"spentOn\": \"2021-04-14\",\n    \"hours\": 1,\n    \"comments\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\",\n    \"userId\": 6\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3030/api/v1/time-entries/time-entry-of-user-per-project",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"v1",
+						"time-entries",
+						"time-entry-of-user-per-project"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3030/api/v1/time-entries/time-entries-of-user-per-project",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"projectId\": 1,\n    \"entries\": [\n        {\n            \"spentOn\": \"2021-04-15\",\n            \"hours\": 2,\n            \"comments\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry.\"\n        },\n        {\n            \"spentOn\": \"2021-04-15\",\n            \"hours\": 6,\n            \"comments\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry.\"\n        },\n\n        {\n            \"spentOn\": \"2021-04-14\",\n            \"hours\": 6,\n            \"comments\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry.\"\n        }\n    ],\n    \"userId\": 6\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3030/api/v1/time-entries/time-entries-of-user-per-project",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"v1",
+						"time-entries",
+						"time-entries-of-user-per-project"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3030/api/v1/time-entries/time-entries-of-user-multi-projects",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"entries\": [\n        {\n            \"projectId\": 1,\n            \"spentOn\": \"2021-04-15\",\n            \"hours\": 2,\n            \"comments\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry.\"\n        },\n        {\n            \"projectId\": 2,\n            \"spentOn\": \"2021-04-15\",\n            \"hours\": 6,\n            \"comments\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry.\"\n        },\n\n        {\n            \"projectId\": 3,\n            \"spentOn\": \"2021-04-14\",\n            \"hours\": 6,\n            \"comments\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry.\"\n        }\n    ],\n    \"userId\": 6\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3030/api/v1/time-entries/time-entries-of-user-multi-projects",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"v1",
+						"time-entries",
+						"time-entries-of-user-multi-projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3030/api/v1/time-entries/time-entries-of-users-per-project",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"projectId\": 1,\n    \"entries\": [\n        {\n            \"userId\": 6,\n            \"spentOn\": \"2021-04-15\",\n            \"hours\": 2,\n            \"comments\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry.\"\n        },\n        {\n            \"userId\": 7,\n            \"spentOn\": \"2021-04-15\",\n            \"hours\": 6,\n            \"comments\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry.\"\n        },\n\n        {\n            \"userId\": 8,\n            \"spentOn\": \"2021-04-14\",\n            \"hours\": 6,\n            \"comments\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry.\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3030/api/v1/time-entries/time-entries-of-users-per-project",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"v1",
+						"time-entries",
+						"time-entries-of-users-per-project"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

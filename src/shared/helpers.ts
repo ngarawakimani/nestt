@@ -2,7 +2,13 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class Helpers {
-  public buildError(errors) {
+  /**
+   * Helper to build response errors
+   *
+   * @param {Object} errors
+   * @returns {Object}
+   */
+  public buildError(errors): any {
     const result = {};
     errors.forEach((el) => {
       const prop = el.property;
@@ -13,13 +19,24 @@ export class Helpers {
     return result;
   }
 
+  /**
+   * Check validation types
+   *
+   * @param {Object} metatype
+   * @returns {Boolean}
+   */
   public toValidate(metatype): boolean {
     const types = [String, Boolean, Number, Array, Object];
     return !types.find((type) => metatype === type);
   }
 
-  public entriesMapTransformer(response: any) {
-      console.log(response);
+  /**
+   * Transform entries
+   *
+   * @param {Object} response
+   * @returns {Object}
+   */
+  public entriesMapTransformer(response: any): any {
     const res = {
       time_entries: [],
     };

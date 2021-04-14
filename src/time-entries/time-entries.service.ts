@@ -11,29 +11,56 @@ import { TimeEntriesUsersDto } from './dto/time.entries.users.dto';
 
 @Injectable()
 export class TimeEntriesService {
+  /**
+   * @private
+   * @type {any}
+   * @memberof TimeEntriesService
+   */
   private responseArray: any;
+
   constructor(private httpService: HttpService, private helpers: Helpers) {
     this.responseArray = [];
   }
 
+  /**
+   * Get all projects
+   *
+   * @returns {Promise<Observable<any>>}
+   */
   async getProjects(): Promise<Observable<any>> {
     return await this.httpService
       .get(`projects.json`)
       .pipe(map((response) => response.data));
   }
 
+  /**
+   * Get all users in the "software" team group
+   *
+   * @returns {Promise<Observable<any>>}
+   */
   async getUsers(): Promise<Observable<any>> {
     return await this.httpService
       .get(`groups/12.json?include=users`)
       .pipe(map((response) => response.data));
   }
 
+  /**
+   * Get all issues on issues
+   *
+   * @returns Promise<Observable<any>>
+   */
   async getIssues(): Promise<Observable<any>> {
     return await this.httpService
       .get(`issues.json`)
       .pipe(map((response) => response.data));
   }
 
+  /**
+   * Make a time entry of a user per project
+   *
+   * @param {Object} data
+   * @returns {Promise<Observable<any>>}
+   */
   async createTimeEntryOfUserPerProject(data: any): Promise<Observable<any>> {
     const payload = {
       project_id: data.projectId,
@@ -49,6 +76,12 @@ export class TimeEntriesService {
       .pipe(map((response) => response.data));
   }
 
+  /**
+   * Make time entries of a user per project
+   *
+   * @param {Object} data
+   * @returns {Promise<Observable<any>>}
+   */
   async createTimeEntriesOfUserPerProject(data: any): Promise<Observable<any>> {
     for (let i = 0; i < data.entries.length; i++) {
       const validationObject = {
@@ -78,6 +111,12 @@ export class TimeEntriesService {
     );
   }
 
+  /**
+   * Make time entries of a user in multiple projects
+   *
+   * @param {Object} data
+   * @returns {Promise<Observable<any>>}
+   */
   async createTimeEntriesOfUserMultiProjects(
     data: any,
   ): Promise<Observable<any>> {
@@ -110,6 +149,12 @@ export class TimeEntriesService {
     );
   }
 
+  /**
+   * Make time entries of users in a project
+   *
+   * @param {Object} data
+   * @returns {Promise<Observable<any>>}
+   */
   async createTimeEntriesOfUsersPerProject(
     data: any,
   ): Promise<Observable<any>> {
@@ -143,6 +188,14 @@ export class TimeEntriesService {
     );
   }
 
+  /**
+   * Send time entries requests
+   *
+   * @param {Object} validationObject
+   * @param {Object} payload
+   * @param {Class} dto
+   * @returns {Promise<void>}
+   */
   async sendTimeEntriesRequests(
     validationObject: any,
     payload: any,
@@ -165,6 +218,12 @@ export class TimeEntriesService {
     );
   }
 
+  /**
+   * Make time entries requests
+   *
+   * @param {Object} data
+   * @returns {Observable<any>}
+   */
   postEntries(data?: any): Observable<any> {
     return new Observable<any>((subscriber) => {
       Promise.all(data)

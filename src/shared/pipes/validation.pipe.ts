@@ -12,14 +12,14 @@ import { Helpers } from '../helpers';
 
 @Injectable()
 export class ValidationPipe implements PipeTransform<any> {
-  private helpers: Helpers;
   async transform(value, metadata: ArgumentMetadata) {
+    const helpers = new Helpers();
     if (!value) {
       throw new BadRequestException('No data submitted');
     }
 
     const { metatype } = metadata;
-    if (!metatype || !this.helpers.toValidate(metatype)) {
+    if (!metatype || !helpers.toValidate(metatype)) {
       return value;
     }
     const object = plainToClass(metatype, value);
@@ -28,7 +28,7 @@ export class ValidationPipe implements PipeTransform<any> {
       throw new HttpException(
         {
           message: 'Input data validation failed',
-          errors: this.helpers.buildError(errors),
+          errors: helpers.buildError(errors),
         },
         HttpStatus.BAD_REQUEST,
       );
