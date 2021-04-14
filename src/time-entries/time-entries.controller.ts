@@ -1,8 +1,10 @@
 import { Controller, Get, Post, Body, UsePipes } from '@nestjs/common';
 import { TimeEntriesService } from './time-entries.service';
-import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { ValidationPipe } from '../shared/pipes/validation.pipe';
-import { CreateSingleUserPerProjectDto } from './dto/create.single-user-per-project.dto';
+import { CreateTimeEntryOfUserPerProjectDto } from './dto/create.time-entry-of-user-per-project.dto';
+import { CreateTimeEntriesOfUserPerProjectDto } from './dto/create.time-entries-of-user-per-project.dto';
+import { CreateTimeEntriesOfUserMultiProjectsDto } from './dto/create.time-entries-of-user-multi-projects.dto';
+import { CreateTimeEntriesOfUsersPerProjectDto } from './dto/create.time-entries-of-users-per-project.dto';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -15,10 +17,10 @@ import {
 @ApiTags('Time Entries')
 @Controller('time-entries')
 export class TimeEntriesController {
-  private projects: any;
-  private users: any;
-
-  constructor(private readonly timeEntriesService: TimeEntriesService) {}
+  private responseTimeEntries: any;
+  constructor(private readonly timeEntriesService: TimeEntriesService) {
+    this.responseTimeEntries = [];
+  }
 
   @Get('projects')
   @ApiOperation({ summary: 'Get list of projects' })
@@ -44,25 +46,22 @@ export class TimeEntriesController {
     return this.timeEntriesService.getIssues();
   }
 
-  @Post()
-  @ApiOperation({ summary: 'Create a single user per project' })
+  @Post('time-entry-of-user-per-project')
+  @ApiOperation({ summary: 'Create a Time Entry of a user per project' })
   @ApiParam({
-    name: 'project_id',
+    name: 'projectId',
     type: 'number',
     example: 1,
   })
   @ApiParam({
-    name: 'spent_on',
+    name: 'spentOn',
     type: 'string',
     example: '2021-04-13',
   })
   @ApiParam({
-    name: 'time_entry',
-    type: 'json',
-    example: {
-      hours: 10,
-      activity_id: 5,
-    },
+    name: 'hours',
+    type: 'number',
+    example: 10,
   })
   @ApiParam({
     name: 'comments',
@@ -70,23 +69,130 @@ export class TimeEntriesController {
     example: 'Lorem Ipsum is simptext ev.',
   })
   @ApiParam({
-    name: 'user_id',
+    name: 'userId',
     type: 'number',
     example: 1,
   })
   @ApiResponse({
-    status: 200,
+    status: 201,
     description: 'OK',
-    type: CreateSingleUserPerProjectDto,
   })
   @ApiResponse({ status: 422, description: 'Unprocessable Entity' })
   @UsePipes(new ValidationPipe())
-  @Post('single-user-per-project')
-  singleUserPerProject(
-    @Body() createSingleUserPerProjectDto: CreateSingleUserPerProjectDto,
+  timeEntryOfUserPerProject(
+    @Body()
+    timeEntryOfUserPerProjectDto: CreateTimeEntryOfUserPerProjectDto,
   ): any {
-    return this.timeEntriesService
-      .singleUserPerProject(createSingleUserPerProjectDto)
-      .catch((error) => console.log(error));
+    return this.timeEntriesService.createTimeEntryOfUserPerProject(
+      timeEntryOfUserPerProjectDto,
+    );
+  }
+
+  @Post('time-entries-of-user-per-project')
+  @ApiOperation({ summary: 'Create time entries of a user per project' })
+  @ApiParam({
+    name: 'projectId',
+    type: 'number',
+    example: 1,
+  })
+  @ApiParam({
+    name: 'entries',
+    type: 'object',
+    example: [
+      {
+        spentOn: '2021-04-15',
+        hours: 2,
+        comments:
+          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+      },
+    ],
+  })
+  @ApiParam({
+    name: 'userId',
+    type: 'number',
+    example: 1,
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'OK',
+  })
+  @ApiResponse({ status: 422, description: 'Unprocessable Entity' })
+  timeEntriesOfUserPerProject(
+    @Body()
+    createTimeEntriesOfUserPerProjectDto: CreateTimeEntriesOfUserPerProjectDto,
+  ): any {
+    return this.timeEntriesService.createTimeEntriesOfUserPerProject(
+      createTimeEntriesOfUserPerProjectDto,
+    );
+  }
+
+  @Post('time-entries-of-user-multi-projects')
+  @ApiOperation({
+    summary: 'Create time entries of a user on multiple projects',
+  })
+  @ApiParam({
+    name: 'entries',
+    type: 'object',
+    example: [
+      {
+        projectId: 1,
+        spentOn: '2021-04-15',
+        hours: 2,
+        comments:
+          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+      },
+    ],
+  })
+  @ApiParam({
+    name: 'userId',
+    type: 'number',
+    example: 1,
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'OK',
+  })
+  @ApiResponse({ status: 422, description: 'Unprocessable Entity' })
+  timeEntriesOfUserMultiProjects(
+    @Body()
+    createTimeEntriesOfUserMultiProjectsDto: CreateTimeEntriesOfUserMultiProjectsDto,
+  ): any {
+    return this.timeEntriesService.createTimeEntriesOfUserMultiProjects(
+      createTimeEntriesOfUserMultiProjectsDto,
+    );
+  }
+
+  @Post('time-entries-of-users-per-project')
+  @ApiOperation({ summary: 'Create time entries of users per project' })
+  @ApiParam({
+    name: 'projectId',
+    type: 'number',
+    example: 1,
+  })
+  @ApiParam({
+    name: 'entries',
+    type: 'object',
+    example: [
+      {
+        userId: 6,
+        spentOn: '2021-04-15',
+        hours: 2,
+        comments:
+          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+      },
+    ],
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'OK',
+  })
+  @ApiResponse({ status: 422, description: 'Unprocessable Entity' })
+  timeEntriesOfUsersPerProject(
+    @Body()
+    createTimeEntriesOfUsersPerProjectDto: CreateTimeEntriesOfUsersPerProjectDto,
+  ): any {
+    return this.timeEntriesService.createTimeEntriesOfUsersPerProject(
+      createTimeEntriesOfUsersPerProjectDto,
+    );
   }
 }

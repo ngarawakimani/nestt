@@ -35,7 +35,19 @@ describe('Time Entries', () => {
       .expect('Content-Type', /json/)
       .expect(200)
       .then((response) => {
-        expect(response.body.group.users[0].name).toBe('Dancan Kimani');
+        expect(response.body.group.name).toBe('Software Team');
+        done();
+      })
+      .catch((err) => done(err));
+  });
+
+  it(`/GET Issues`, (done) => {
+    return request(app.getHttpServer())
+      .get('/time-entries/issues')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then((response) => {
+        expect(typeof response.body.issues).toBe('object');
         done();
       })
       .catch((err) => done(err));

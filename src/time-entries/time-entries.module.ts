@@ -3,6 +3,7 @@ import { TimeEntriesController } from './time-entries.controller';
 import { TimeEntriesService } from './time-entries.service';
 import { ConfigModule } from '@nestjs/config';
 import { ConfigService } from '@nestjs/config';
+import { Helpers } from './../shared/helpers';
 
 @Module({
   imports: [
@@ -19,6 +20,6 @@ import { ConfigService } from '@nestjs/config';
     }),
   ],
   controllers: [TimeEntriesController],
-  providers: [TimeEntriesService],
+  providers: [TimeEntriesService, Helpers],
 })
 export class TimeEntriesModule {}
