@@ -1,20 +1,5 @@
 version: '3.1'
 services:
-    time_entries_api:
-        container_name: time_entries_api
-        image: time_entries_api:1.0.0
-        build:
-            context: .
-            dockerfile: ./Dockerfile
-        command: npm run start:debug
-        ports:
-            - 3030:3030
-        networks:
-            - time_entries_api
-        volumes:
-            - .:/usr/src/app
-            - /usr/src/app/node_modules
-        restart: unless-stopped
     postgres:
         container_name: time_entries_api_db
         image: postgres:latest
@@ -22,7 +7,7 @@ services:
         networks:
             - time_entries_api
         volumes:
-            - ./postgres-data:/var/lib/postgresql/data
+            - postgres-data:/var/lib/postgresql/data
         environment:
             - 'POSTGRES_PASSWORD=password'
             - 'POSTGRES_DB=redmine'
@@ -33,9 +18,9 @@ services:
         networks:
             - time_entries_api
         volumes:
-            - ./redmine-data:/usr/src/redmine/files
+            - redmine-data:/usr/src/redmine/files
         ports:
-            - 80:3000
+            - 9090:3000
         environment:
             - 'REDMINE_DB_POSTGRES=postgres'
             - 'REDMINE_DB_DATABASE=redmine'

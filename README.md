@@ -28,9 +28,20 @@ $ git clone git@gitlab.com:dej-rs-projects/testprojects/2021-04-nestjs-dancan-ki
 ## Running the app
 
 ```bash
-# development
+# build db and redmine server containers
 $ docker-compose up -d
-$ docker logs -f time_entries_ap
+
+# Restore backup
+$ cat backup/dumpbackup.sql | docker exec -i time_entries_api_db psql -U postgres
+```
+
+```bash
+# install nestjs dependencies
+$ npm install
+# copy .env file
+$ cp -r .env.example .env
+# run the nestjs server
+$ npm run start:dev
 ```
 
 ## Test
@@ -45,6 +56,21 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## Helpers
+
+```bash
+# to know the db's server IP from the container's network
+# this will help with setup to pgadmin or any db manager tool
+$ docker inspect time_entries_api_db
+
+```
+
+## API documentation
+
+Swagger UI URL : http://localhost:3030/docs/#/
+
+Postman collection : time.postman_collection.json
 
 ## Developers
 
