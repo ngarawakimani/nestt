@@ -22,7 +22,7 @@ document everything (reviewer will check out the project and it needs to run on 
 Clone the repo from you gitlab account:
 
 ```bash
-$ git clone git@gitlab.com:dej-rs-projects/testprojects/2021-04-nestjs-dancan-kimani.git
+$ git clone git@github.com:ngarawakimani/nest-test.git
 ```
 
 ## Running the app
